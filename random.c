@@ -1,3 +1,22 @@
+/*
+Selects random file/dir from a directory.
+Copyright (C) 2023 alexevier <alexevier@proton.me>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 #define _GNU_SOURCE
 #include<sys/syscall.h>
 #include<sys/random.h>
@@ -72,6 +91,9 @@ int main(int argc, char** argv){
 					case 'e':
 						OPTION.expand = true;
 						break;
+					case 'n':
+						printf("%u\n", lrandom());
+						return ERROR;
 					default:
 						printf("unknown option: %c\n", argv[i][j]);
 						//fallthrough
@@ -278,18 +300,20 @@ static const char HELP[] =
 "  -d, dirs only\n"
 "  -f, files only\n"
 "  -e, expand relative path\n"
+"  -n, print a random number\n"
 "  -h, print this help and exit\n"
 "  --, stop parsing options\n"
 "\n"
 "Notes:\n"
 ". and .. are always ignored\n"
-"if -a is not used, hidden directories are ignored in recursion\n"
+"if -a is not used hidden directories are ignored in recursion\n"
 "\n"
 "Exit status:\n"
 "  0  Ok\n"
 "  1  minor problem\n"
 "  2  problematic problem\n"
 "\n"
-"Version: "VERSION"\n"
-"Author: alexevier <alexevier@proton.me>\n"
-"License: GPLv2\n";
+"random version "VERSION", Copyright (C) 2023 alexevier <alexevier@proton.me>\n"
+"random comes with ABSOLUTELY NO WARRANTY;\n"
+"This is free software, and you are welcome to redistribute it\n"
+"under certain conditions;\n";
